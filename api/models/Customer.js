@@ -22,7 +22,21 @@ module.exports = {
     //  ╔═╗╔═╗╔═╗╔═╗╔═╗╦╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ╠═╣╚═╗╚═╗║ ║║  ║╠═╣ ║ ║║ ║║║║╚═╗
     //  ╩ ╩╚═╝╚═╝╚═╝╚═╝╩╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+    name : {
+      type : 'string',
+      required: true
+    },
 
+    email : {
+      type: 'string',
+      email: true,
+      unique: true,
+      required: true
+    },
+
+    state : {
+        type: 'string'
+    }
   },
 
 };
