@@ -1,0 +1,22 @@
+
+<div class="container">
+  <h2 class="page-title">Update customer</h2>
+  <form action="/customer/update/<%= customer.id %>" method="PUT">
+    <div class="form-group">
+      <label for="full-name">Ten day du</label>
+      <input type="text" id="full-name" value="<%= customer.name %>" name="name" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" value="<%= customer.email %>" name="email" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="State">State</label>
+      <input type="text" name="state" value="<%= customer.state %>" class="form-control">
+    </div>
+    <div class="form-group">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+</div>
+

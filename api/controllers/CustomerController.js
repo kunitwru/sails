@@ -6,6 +6,20 @@
  */
 module.exports = {
 
+  /**
+   * show all customer
+   * @param req
+   * @param res
+   */
+  index: async function (req, res) {
+
+    var users = await Customer.find();
+
+    res.view({
+      model: users
+    });
+  },
+
 
   /**
    * action new : them moi customer
@@ -51,6 +65,34 @@ module.exports = {
     res.view({
       customer: customer
     })
+  },
+
+
+  edit: async function (req,res) {
+    var id = req.param('id');
+
+    if (!id) return res.send("No id specified.",500);
+    var customer = await Customer.findOne(id);
+
+    res.view({
+      customer: customer
+    });
+  },
+
+  update : async function (req, res) {
+    var params = _.extend(req.query || {}, req.params || {}, req.body || {});
+    var id = params.id;
+
+    if (!id) return res.send("No id specified.",500);
+
+    var result = await Customer.update({id:id})
+      .set(req.allParams())
+      .fetch();
+
+      if(!result) {
+        res.redirect('/customer/edit');
+      }
+      res.redirect('/customer/show/'+id);
   }
 };
 

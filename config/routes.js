@@ -35,6 +35,18 @@ module.exports.routes = {
   'GET /account/profile':    { action: 'account/view-edit-profile' },
   'GET /customer/new' :      { action: 'customer/new' },
   'GET /customer/show/:id' :     { action: 'customer/show'},
+  'GET /customer': {
+    controller	: 'customer',
+    action		: 'index'
+  },
+  'GET /customer/edit/:id': {
+    controller	: 'customer',
+    action		: 'edit'
+  },
+  'PUT /customer/update/:id': {
+    controller	: 'customer',
+    action		: 'update'
+  },
 
 
   //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗

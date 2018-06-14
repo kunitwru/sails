@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="page-header">
+    <h1 class="pull-left">Listing users</h1>
+    <a href="/customer/new" class="btn btn-sm btn-success pull-right">Add</a>
+  </div>
+
+
+
+  <table class="table table-hover">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+
+    <% _.each(model, function (user) { %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+      <td><a href="/customer/show/<%= user.id %>">Show</a></td>
+      <td><a href="/customer/edit/<%= user.id %>">Edit</a></td>
+      <td><a href="/customer/destroy/<%= user.id %>">Delete</a></td>
+      <% }) %>
+    </tr>
+  </table>
+
+</div>
+
