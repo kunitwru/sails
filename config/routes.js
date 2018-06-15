@@ -34,6 +34,11 @@ module.exports.routes = {
   'GET /account/password':   { action: 'account/view-edit-password' },
   'GET /account/profile':    { action: 'account/view-edit-profile' },
   'GET /customer/new' :      { action: 'customer/new' },
+
+  'POST /customer/create' :      {
+    controller : 'customer',
+    action: 'create'
+  },
   'GET /customer/show/:id' :     { action: 'customer/show'},
   'GET /customer': {
     controller	: 'customer',

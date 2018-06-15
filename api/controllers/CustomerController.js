@@ -39,10 +39,12 @@ module.exports = {
 
     var params = _.extend(req.query || {}, req.params || {}, req.body || {});
     var createdUser = await Customer.create(params).fetch();
+    sails.log(createdUser);
     if (!createdUser) {
-      res.send('Create error', 500);
+      res.notFound()
     }
-    res.redirect('/customer/show/' + createdUser.id);
+    res.json({'status' : 'OK', 'ID' : createdUser.id});
+    // res.redirect('/customer/show/' + createdUser.id);
     // sails.log(createdUser.id);
     return;
 
@@ -56,15 +58,16 @@ module.exports = {
     var id = req.param('id');
 
 
-    if (!id) return res.send("No id specified.", 500);
+    if (!id) return res.notFound();
 
     var customer = await Customer.findOne(id);
 
-    if (!customer) return res.send("User " + id + " not found", 404);
-
-    res.view({
-      customer: customer
-    })
+    if (!customer) return res.notFound();
+    res.json({'status' : 'OK', customer});
+    return;
+    // res.view({
+    //   customer: customer
+    // })
   },
   /**
    *
@@ -76,9 +79,13 @@ module.exports = {
   edit: async function (req,res) {
     var id = req.param('id');
 
-    if (!id) return res.send("No id specified.",500);
+    if (!id) {
+      return res.notFound();
+    }
     var customer = await Customer.findOne(id);
-
+    if(!customer) {
+      return res.notFound();
+    }
     res.view({
       customer: customer
     });
@@ -93,7 +100,9 @@ module.exports = {
     var params = _.extend(req.query || {}, req.params || {}, req.body || {});
     var id = params.id;
 
-    if (!id) return res.send("No id specified.",500);
+    if (!id) {
+      return res.notFound();
+    }
 
     var result = await Customer.update({id:id})
       .set(req.allParams())
@@ -113,15 +122,17 @@ module.exports = {
   destroy : async function (req, res) {
       var id = req.param('id');
       // sails.log(req.param('id'));
-      if (!id) return res.send("No id specified.",500);
+      if (!id) {
+        return res.notFound();
+      }
       var customer = await Customer.findOne(id);
       if(!customer) {
-        return res.send("No customer with that id exists.",404);
+        return res.notFound();
       }
       var result = await Customer.destroy(id).fetch();
 
       if (result.length === 0) {
-        return res.send("Delete customer error",500);
+        return res.notFound();
       } else {
         return res.redirect('/customer');
       }
