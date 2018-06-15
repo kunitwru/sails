@@ -66,7 +66,12 @@ module.exports = {
       customer: customer
     })
   },
-
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
 
   edit: async function (req,res) {
     var id = req.param('id');
@@ -78,7 +83,12 @@ module.exports = {
       customer: customer
     });
   },
-
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
   update : async function (req, res) {
     var params = _.extend(req.query || {}, req.params || {}, req.body || {});
     var id = params.id;
@@ -93,6 +103,28 @@ module.exports = {
         res.redirect('/customer/edit');
       }
       res.redirect('/customer/show/'+id);
+  },
+  /**
+   *
+   * @param req
+   * @param res
+   * @returns {Promise<*>}
+   */
+  destroy : async function (req, res) {
+      var id = req.param('id');
+      // sails.log(req.param('id'));
+      if (!id) return res.send("No id specified.",500);
+      var customer = await Customer.findOne(id);
+      if(!customer) {
+        return res.send("No customer with that id exists.",404);
+      }
+      var result = await Customer.destroy(id).fetch();
+
+      if (result.length === 0) {
+        return res.send("Delete customer error",500);
+      } else {
+        return res.redirect('/customer');
+      }
   }
 };
 

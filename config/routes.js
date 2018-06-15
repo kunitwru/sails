@@ -47,6 +47,10 @@ module.exports.routes = {
     controller	: 'customer',
     action		: 'update'
   },
+  'DELETE /customer/:id': {
+    controller	: 'customer',
+    action		: 'destroy'
+  },
 
 
   //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
